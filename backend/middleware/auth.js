@@ -7,23 +7,27 @@ const Manager = require("../models/User/managerModel");
 const Client = require("../models/User/clientModel");
 
 exports.isAuthenticatedUser = catchAsyncError(async (req, res, next) => {
-  const { token } = req.cookies;
+  const reqHeader = req.headers.authorization;
+
+  const newtokenData = reqHeader?.split(" ");
+
+  const token = newtokenData[1];
   if (!token) {
     next(new ErrorHandler("Please Login to access this resource", 401));
   } else {
-    const tokenData = token.split(",");
-    const decodeData = jwt.verify(tokenData[0], process.env.JWT_SECRET);
-    if (tokenData[1] === "Admin") {
-      req.user = await Admin.findById(decodeData.id);
+    const decodeData = jwt.verify(token, process.env.JWT_SECRET);
+    console.log("decodeData", decodeData);
+    if (decodeData.data.role === "Admin") {
+      req.user = await Admin.findById(decodeData.data.id);
     }
-    if (tokenData[1] === "Hr") {
-      req.user = await SubAdmin.findById(decodeData.id);
+    if (decodeData.data.role === "Hr") {
+      req.user = await SubAdmin.findById(decodeData.data.id);
     }
-    if (tokenData[1] === "Manager") {
-      req.user = await Manager.findById(decodeData.id);
+    if (decodeData.data.role === "Manager") {
+      req.user = await Manager.findById(decodeData.data.id);
     }
-    if (tokenData[1] === "Client") {
-      req.user = await Client.findById(decodeData.id);
+    if (decodeData.data.role === "Client") {
+      req.user = await Client.findById(decodeData.data.id);
     }
     // console.log(typeof token);
     next();
