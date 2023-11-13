@@ -13,6 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 app.use(
   fileUpload({ limits: { fieldSize: 50 * 1024 * 1024 }, useTempFiles: true })
 );
+console.log("backend is running");
 app.use(cors({ origin: "*" }));
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");

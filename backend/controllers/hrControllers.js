@@ -241,11 +241,15 @@ exports.clientCreate = catchAsyncError(async (req, res, next) => {
   });
 });
 
+console.log("inside hr controller");
+
 /* ===================================================
         Get All Client (/api/v1/get/client) (req : Get)
    =================================================== */
 exports.getAllClient = catchAsyncError(async (req, res, next) => {
+  console.log("calling client");
   const apifeatures = new ApiFetaures(Client.find(), req.query).nameSearch();
+  console.log("apifeatures", apifeatures);
   const client = await apifeatures.query;
   res.status(200).json({
     success: true,
