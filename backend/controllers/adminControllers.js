@@ -1057,7 +1057,6 @@ exports.deleteWithdraw = catchAsyncError(async (req, res, next) => {
    ====================================================================== */
 exports.unpaidCustomer = catchAsyncError(async (req, res, next) => {
   const client = await Client.find().populate({ path: "activeProject" });
-  console.log("client", client);
   let clientD = [];
   for (var i = 0; i < client.length; i++) {
     clientD.push({
