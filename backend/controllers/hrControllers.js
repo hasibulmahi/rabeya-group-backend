@@ -143,10 +143,12 @@ exports.getSingleManager = catchAsyncError(async (req, res, next) => {
         Update Manager (/api/v1/manager/update/:id) (req : Get)
    =================================================== */
 exports.updateManager = catchAsyncError(async (req, res, next) => {
+  console.log("employee is ready");
   const employee = await Manager.findById(req.params.id);
   if (!employee) {
     return next(new ErrorHandler("Client Not Found", 404));
   }
+
   const userData = {
     userName: req.body.userName,
     name: req.body.name,

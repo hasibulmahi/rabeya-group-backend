@@ -16,7 +16,6 @@ class ApiFetaures {
       : {};
 
     this.query = this.query.find({ ...keyword });
-    console.log("this", this);
     return this;
   }
 

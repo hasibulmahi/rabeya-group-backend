@@ -36,7 +36,6 @@ exports.isAuthenticatedUser = catchAsyncError(async (req, res, next) => {
 
 exports.authorizeRoles = (...roles) => {
   return (req, res, next) => {
-    console.log("req.user", req);
     if (!roles.includes(req.user.role)) {
       return next(
         new ErrorHandler(

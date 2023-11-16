@@ -921,7 +921,7 @@ exports.createDeposit = catchAsyncError(async (req, res, next) => {
   }
   res.status(200).json({
     success: true,
-    message: "Deposit Successfull",
+    message: "Deposit Successful",
   });
 });
 
